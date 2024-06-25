@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Calculadora</h1>
+    <form id="calculator-form" class="mt-4" method="post" th:action="@{/calculator}" th:object="${calculator}">
+        <div class="form-group">
+            <label for="result">Resultado</label>
+            <input type="text" class="form-control" id="result" readonly th:field="*{result}">
+        </div>
+        <div class="form-group">
+            <label for="number">Número</label>
+            <input type="number" class="form-control" id="number" required th:field="*{numberActual}">
+        </div>
+        <div class="form-group">
+            <label for="operation">Operación</label>
+            <select class="form-control" id="operation" required th:field="*{operation}">
+                <option value="add">Sumar</option>
+                <option value="subtract">Restar</option>
+                <option value="multiply">Multiplicar</option>
+                <option value="divide">Dividir</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Calcular</button>
+    </form>
+
+    <h2 class="mt-5">Historial de Operaciones</h2>
+    <table class="table table-striped mt-3">
+        <thead>
+        <tr>
+            <th>Operación</th>
+            <th>Valor</th>
+            <th>Resultado</th>
+        </tr>
+        </thead>
+        <tbody id="history-body">
+        <!-- Aquí es donde Thymeleaf iterará sobre el historial de operaciones -->
+        <tr th:each="entry : ${calculator.history}">
+            <td th:text="${entry.operation}"></td>
+            <td th:text="${entry.number}"></td>
+            <td th:text="${entry.result}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
