@@ -29,10 +29,11 @@ This classes haven´t unit test
 
 ## Deployment
 
+
 The process were building project maven with the command:
 
 ```
-mvn archetype:generate -DgroupId=org.example -DartifactId=URLS -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+mvn archetype:generate -DgroupId=org.example -DartifactId=CALCULATOR -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 
 ```
 
@@ -40,80 +41,47 @@ Then we have verify the class App.java and the pom.xml, run the project with:
 
 ```
 mvn package
-
 ```
+
 
 For generate documentation update the pom.xml add and later use "mvn package":
 
 ```
-<build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>17</source>
-                    <target>17</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <reportOutputDirectory>${project.basedir}/documentation/javadocs</reportOutputDirectory>
-                    <destDir>${project.basedir}/documentation/javadocs</destDir>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>generate-javadocs</id>
-                        <goals>
-                            <goal>javadoc</goal>
-                            <goal>aggregate</goal>
-                            <goal>aggregate-jar</goal>
-                        </goals>
-                        <configuration>
-                            <reportOutputDirectory>${project.basedir}/documentation/javadocs</reportOutputDirectory>
-                            <destDir>${project.basedir}/documentation/javadocs</destDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-test-javadocs</id>
-                        <goals>
-                            <goal>test-javadoc</goal>
-                            <goal>test-aggregate</goal>
-                            <goal>test-aggregate-jar</goal>
-                        </goals>
-                        <configuration>
-                            <destDir>${project.basedir}/documentation/testJavadocs</destDir>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+<reporting>
+    <plugins>
+    <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-javadoc-plugin</artifactId>
+    <version>2.10.1</version>
+    <configuration>
+    </configuration>
+    </plugin>
+    </plugins>
+</reporting>
+```
+
+and the use in order this commands for run documentation:
 
 ```
-With the before plugins the documentation generate in the URLS/documentation/
+mvn javadoc:javadoc
+mvn javadoc:jar
+mvn javadoc:aggregate
+mvn javadoc:aggregate-jar
+mvn javadoc:test-javadoc
+mvn javadoc:test-jar
+mvn javadoc:test-aggregate
+mvn javadoc:test-aggregate-jar
+```
 
-### Server web (return images and files html):
-This return images and files html save at directory **src/main/resource**
-- For run program location in the root of URLS
-  For run server:
-```
-java -cp "target/classes" org.example.ConcurrentServerSendImageDocument
+if you want see this documentation go to file located
+
 
 ```
-For run client,
-you have into to browser and put this url:
-```
-localhost:35000/xxxxxxxxx
-```
-you replace xxxxxxxxx for the name of the file. The files exist are:
-- Among_Us_cover_art.jpg
-- proof.html
+...\target\apidocs\index.html
 
-You can add more files to **src/main/resource** and then call for before URL channel.
+```
+Then we start designing the app with the next model:
+![Diagram.png](Resource/Diagram.png)
 
 
 
